@@ -1,0 +1,35 @@
+[base]
+name=CentOS 7 Base
+baseurl=http://yum.hongsnet.net/centos/7/os/$basearch/
+gpgcheck=0
+enabled=1
+ 
+[update]
+name=CentOS 7 Update
+baseurl=http://yum.hongsnet.net/centos/7/updates/$basearch/
+gpgcheck=0
+enabled=1
+ 
+[extras]
+name=CentOS 7 Extras
+baseurl=http://yum.hongsnet.net/centos/7/extras/$basearch/
+gpgcheck=0
+enabled=1
+ 
+#[cloud]
+#name=CentOS 7 Cloud
+#baseurl=http://yum.hongsnet.net/centos/7/cloud/$basearch/
+#gpgcheck=0
+#enabled=1
+ 
+#[storage]
+#name=CentOS 7 Stroage
+#baseurl=http://yum.hongsnet.net/centos/7/stroage/$basearch/
+#gpgcheck=0
+#enabled=1
+ 
+[remi]
+name=CentOS 7 Remi
+baseurl=http://yum.hongsnet.net/remi/7/$basearch/
+gpgcheck=0
+enabled=1

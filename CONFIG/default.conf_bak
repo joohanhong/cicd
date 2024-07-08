@@ -1,0 +1,59 @@
+server {
+  listen  80;
+  server_name monitor.hongsnet.net;
+
+  access_log /var/log/nginx/mon-web.access.log;
+  error_log /var/log/nginx/mon-web.error.log;
+  add_header Cache-Control no-store always;
+
+  return 301 https://monitor.hongsnet.net;
+}
+
+server {
+  listen  443 ssl http2;
+  server_name monitor.hongsnet.net;
+
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+
+  ssl_certificate /etc/letsencrypt/live/hongsnet.net/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/hongsnet.net/privkey.pem;
+  ssl_trusted_certificate /etc/letsencrypt/live/hongsnet.net/chain.pem;
+
+  location / {
+        root   /home/mon-web;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+
+        # kill cache
+        add_header Last-Modified $date_gmt;
+        add_header Cache-Control 'no-store, no-cache';
+        if_modified_since off;
+        expires off;
+        etag off;
+  }
+
+}
+
+server {
+  listen  8080;
+  server_name mon-api.hongsnet.net;
+
+  access_log /var/log/nginx/mon-api.access.log;
+  error_log /var/log/nginx/mon-api.error.log;
+  add_header Cache-Control no-store always;
+
+  location / {
+        root   /home/mon-api;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+
+        # kill cache
+        add_header Last-Modified $date_gmt;
+        add_header Cache-Control 'no-store, no-cache';
+        if_modified_since off;
+        expires off;
+        etag off;
+  }
+
+}

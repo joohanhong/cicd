@@ -1,4 +1,4 @@
-FROM harbor.hongsnet.net/hongsnet-centos/centos:7.6.1810
+FROM ghcr.io/joohanhong/centos:7.6.1810
 MAINTAINER Hongs <master@hongsnet.net>
 
 #TIME ZONE 설정

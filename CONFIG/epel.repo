@@ -1,5 +1,0 @@
-[epel]
-name=CentOS 7 EPEL
-baseurl=http://yum.hongsnet.net/epel/7/$basearch/
-gpgcheck=0
-enabled=1

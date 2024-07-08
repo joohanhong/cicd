@@ -1,4 +1,0 @@
-[mariadb]
-name = MariaDB
-baseurl = http://yum.hongsnet.net/mariadb/centos7/10.3/$basearch
-gpgcheck=0

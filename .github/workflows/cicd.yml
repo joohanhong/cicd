@@ -43,7 +43,7 @@ jobs:
         run: |
           git config --global user.name "${{secrets.USERNAME_ARGOCD}}"
           git config --global user.email "${{secrets.EMAIL_ARGOCD}}"
-          cd argocd-test-configs
+          cd argocd_test
           git add .
           git commit -m "Updated by GitHub Actions ${{ github.run_number }}"
           git push https://gitlab.hongsnet.net/joohan.hong/argocd_test.git --all

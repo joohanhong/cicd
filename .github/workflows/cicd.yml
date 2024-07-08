@@ -8,7 +8,8 @@ jobs:
   build:
     runs-on: 
     steps:
-    - uses: hongsnet-nginx:latest
+    #- uses: hongsnet-nginx:latest
+    - uses: owner/repo@v3
       with:
         registry: ghcr.io
         username: ${{ secrets.CONTAINER_USERNAME }}

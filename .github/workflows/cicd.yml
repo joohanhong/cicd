@@ -46,5 +46,5 @@ jobs:
           cd argocd_test
           git add .
           git commit -m "Updated by GitHub Actions ${{ github.run_number }}"
-          git push https://gitlab.hongsnet.net/joohan.hong/argocd_test.git --all
+          git push https://joohan.hong:${{ secrets.GITLAB_TOKEN }}@gitlab.hongsnet.net/joohan.hong/argocd_test.git --all
 

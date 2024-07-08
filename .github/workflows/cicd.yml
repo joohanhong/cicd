@@ -18,12 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Login to Docker Hub
+      - name: Login to GitHub Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ env.CONTAINER_USERNAME }}
-          password: ${{ env.CONTAINER_USERNAME }}
+          password: ${{ env.CONTAINER_PASSWORD }}
 
       - uses: actions/checkout@v3
       - name: BuildAndPushImage

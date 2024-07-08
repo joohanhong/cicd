@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone Repository
         run: |
-          git clone https://juhanida21@nate.com:7r6zjbUxrsuhRRLVBsve@gitlab.hongsnet.net/joohan.hong/argocd_test.git
+          git clone https://joohan.hong:${{ secrets.GITLAB_TOKEN }}@gitlab.hongsnet.net/joohan.hong/argocd_test.git
 
       - name: Install yq
         run: |

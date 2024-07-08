@@ -1,4 +1,4 @@
-name: BuildAndPushImageOnHarborAndUpdateArgoCDConfig
+name: BuildAndPushImageOnUpdateArgoCDConfig
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
     runs-on: 
     steps:
     #- uses: hongsnet-nginx:latest
-    - uses: owner/repo@v3
+    - uses: docker/login-action@v1
       with:
         registry: ghcr.io
         username: ${{ secrets.CONTAINER_USERNAME }}

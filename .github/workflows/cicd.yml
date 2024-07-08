@@ -37,7 +37,7 @@ jobs:
 
       - name: Update YAML File
         run: |
-          yq -i '.image.tag = "ghcr.io/joohanhong/hongsnet-nginx:${{ github.run_number }}"' 'github-nginx/values.yaml'
+          yq -i '.image.tag = "ghcr.io/joohanhong/hongsnet-nginx:${{ github.run_number }}"' 'argocd_test/github-nginx/values.yaml'
 
       - name: Push to Repo
         run: |

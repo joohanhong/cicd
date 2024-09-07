@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-and-trivy-checking:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +20,8 @@ jobs:
           username: ${{ secrets.CONTAINER_USERNAME }}
           password: ${{ secrets.CONTAINER_PASSWORD }}
 
-      - uses: actions/checkout@v3
       - name: BuildAndPushImage
+        uses: actions/checkout@v3
         run: |
           docker build ./ -t ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}
           docker push ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}

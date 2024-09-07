@@ -1,9 +1,12 @@
-name: Git-Action CI/CD
+name: Git-Action CI and Trivy
 
 on:
   push:
     branches:
       - main
+
+  env:
+    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
   build-and-deploy:
@@ -26,25 +29,27 @@ jobs:
           docker build ./ -t ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}
           docker push ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}
 
-      - name: Clone Repository
-        run: |
-          git clone https://joohan.hong:${{ secrets.GITLAB_TOKEN }}@gitlab.hongsnet.net/joohan.hong/argocd_test.git
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: 'ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
 
-      - name: Install yq
-        run: |
-          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-          sudo chmod a+x /usr/local/bin/yq
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
 
-      - name: Update YAML File
+      - name: Count vulnerabilities
+        id: vulnerabilities
         run: |
-          yq -i '.image.tag = "${{ github.sha }}"' 'argocd_test/github-nginx/values.yaml'
+          count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif | wc -c)
+          echo "result_count=$count" >> $GITHUB_OUTPUT
+          echo "$count"
 
-      - name: Push to Repo
-        run: |
-          git config --global user.name "${{secrets.USERNAME_ARGOCD}}"
-          git config --global user.email "${{secrets.EMAIL_ARGOCD}}"
-          cd argocd_test
-          git add .
-          git commit -m "Updated by GitHub Actions ${{ github.run_number }}"
-          git push https://joohan.hong:${{ secrets.GITLAB_TOKEN }}@gitlab.hongsnet.net/joohan.hong/argocd_test.git --all
-
+      - name: Slack WebHook Send
+        if:  ${{ steps.vulnerabilities.outputs.result_count != 0 }}

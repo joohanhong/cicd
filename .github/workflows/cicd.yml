@@ -8,7 +8,6 @@ on:
 jobs:
   build-and-trivy-checking:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,6 +34,12 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+      
+      - name: Test Command
+        id: linuxcommand
+        run: |
+           ls -al
+           pwd
 
       - name: Upload Trivy scan results to GitHub Security tab (2024-01-12, Changed)
         uses: github/codeql-action/upload-sarif@v3

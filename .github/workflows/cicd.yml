@@ -29,8 +29,10 @@ jobs:
         uses: aquasecurity/trivy-action@0.20.0
         with:
           image-ref: 'ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}'
-          format: 'table'
+          #format: 'table'
           #exit-code: '1'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'

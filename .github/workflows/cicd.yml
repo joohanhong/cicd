@@ -55,9 +55,3 @@ jobs:
           count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif | wc -c)
           echo "result_count=$count" >> $GITHUB_OUTPUT
           echo "$count"
-
-      - name: Slack WebHook Send
-        uses: 8398a7/action-slack@v3
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if:  ${{ steps.vulnerabilities.outputs.result_count != 0 }}

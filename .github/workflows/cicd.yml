@@ -19,7 +19,7 @@ permissions:
   checks: write
 
 env:
-  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
 

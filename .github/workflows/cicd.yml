@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 name: Git-Action CI/CD
+=======
+name: Git-Action CI and Trivy
+>>>>>>> 346647bd9f943a16ababc31e6537ea0edc005b16
 
 on:
   push:
     branches:
       - main
+<<<<<<< HEAD
 
 jobs:
   build-and-deploy:
@@ -12,6 +17,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+=======
+  pull_request:
+
+permissions:
+  actions: write
+  contents: write
+  id-token: write
+  issues: write
+  pull-requests: write
+  security-events: write
+  checks: write
+
+jobs:
+  build-and-trivy-checking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+>>>>>>> 346647bd9f943a16ababc31e6537ea0edc005b16
 
       - name: Login to GitHub Registry
         uses: docker/login-action@v1
@@ -20,12 +44,18 @@ jobs:
           username: ${{ secrets.CONTAINER_USERNAME }}
           password: ${{ secrets.CONTAINER_PASSWORD }}
 
+<<<<<<< HEAD
       - uses: actions/checkout@v3
       - name: BuildAndPushImage
+=======
+      - name: BuildAndPushImage
+        id: DockerBuild
+>>>>>>> 346647bd9f943a16ababc31e6537ea0edc005b16
         run: |
           docker build ./ -t ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}
           docker push ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}
 
+<<<<<<< HEAD
       - name: Clone Repository
         run: |
           git clone https://joohan.hong:${{ secrets.GITLAB_TOKEN }}@gitlab.hongsnet.net/joohan.hong/argocd_test.git
@@ -48,3 +78,31 @@ jobs:
           git commit -m "Updated by GitHub Actions ${{ github.run_number }}"
           git push https://joohan.hong:${{ secrets.GITLAB_TOKEN }}@gitlab.hongsnet.net/joohan.hong/argocd_test.git --all
 
+=======
+      - name: Run Trivy vulnerability scanner
+        id: trivy-scan
+        #uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ghcr.io/joohanhong/hongsnet-nginx:${{ github.sha }}'
+          #format: 'table'
+          #exit-code: '1'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+      
+      - name: Upload Trivy scan results to GitHub Security tab (2024-01-12, Changed)
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Count vulnerabilities
+        id: vulnerabilities
+        run: |
+          count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif | wc -c)
+          echo "result_count=$count" >> $GITHUB_OUTPUT
+          echo "$count"
+>>>>>>> 346647bd9f943a16ababc31e6537ea0edc005b16

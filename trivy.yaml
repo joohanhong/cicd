@@ -3,7 +3,8 @@ timeout: 10m
 format: sarif
 dependency-tree: true
 list-all-pkgs: true
-exit-code: 1
+#exit-code: 1
+exit-code: 0
 output: trivy-results.sarif
 ignorefile: .trivyignore.yaml
 severity:

@@ -98,6 +98,10 @@ jobs:
           echo "result_count=$count" >> $GITHUB_OUTPUT
           echo "Trivy Result_Count: $count"
 
+      - name: Vulnerabilities Condition Checking
+        if: ${{ steps.vulnerabilities.outputs.result_count != 0 }}
+        run: exit 1
+
       - name: Container Image Vulners Detected Sending Slack
         uses: 8398a7/action-slack@v3
         with:
@@ -106,8 +110,8 @@ jobs:
           fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: ${{ steps.vulnerabilities.outputs.result_count != 0 }}
-        #if: failure()
+        #if: ${{ steps.vulnerabilities.outputs.result_count != 0 }}
+        if: failure()
 
       - name: Container Image Vulners No Detected Sending Slack
         uses: 8398a7/action-slack@v3

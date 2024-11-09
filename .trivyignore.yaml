@@ -1,9 +1,3 @@
 vulnerabilities:
-  - id: CVE-2019-3815
-    statement: TEST
-  - id: CVE-2019-20386
-    statement: TEST
-  - id: CVE-2018-16888
-    statement: TEST
-  - id: CVE-2023-26604
+  - id: CVE-2021-43527
     statement: TEST

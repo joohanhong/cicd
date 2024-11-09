@@ -1,7 +1,7 @@
 timeout: 10m
 #format: json
 format: sarif
-dependency-tree: true
+#dependency-tree: true #format: table only
 list-all-pkgs: true
 #exit-code: 1
 exit-code: 0
@@ -16,7 +16,7 @@ scan:
     - /lib
     - /usr/lib
     - /usr/include
-  security-checks:
+  scanners:
     - vuln
     - secret
 vulnerability:

@@ -64,10 +64,10 @@ jobs:
             #sudo docker build ./ -t ${{ env.image-ref }}
             #sudo docker push ${{ env.image-ref }} 
 
-      - name: Trivy Output File Init
-        id: trivy_output_file
-        run: |
-          sudo rm -rf trivy-results.sarif
+      #- name: Trivy Output File Init
+      #  id: trivy_output_file
+      #  run: |
+      #    sudo rm -rf trivy-results.sarif
 
       - name: Run Trivy vulnerability scanner
         id: trivy-scan
@@ -96,7 +96,7 @@ jobs:
         id: vulnerabilities
         run: |
           sudo yum install -y jq
-          count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif | wc -c)
+          count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif |wc -l)
           #echo "result_count=$count" >> $GITHUB_OUTPUT
           echo "Trivy Result_Count: $count"
 

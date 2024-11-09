@@ -1,47 +1,9 @@
 vulnerabilities:
-  - id: CVE-2023-46233
-    statement: only applies to SHA-1 usage - should still be patched though
-  - id: CVE-2023-52079
-    statement: msgpackr vulnerable to dos
-  - id: CVE-2020-8231
-    statement: curl vuln scheduler - low prio
-  - id: CVE-2022-42003
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2022-42004
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2022-3509
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2022-3510
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2022-35010
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2023-24998
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2023-32697
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2022-1471
-    statement: Dashboards vulns (java libs)
-  - id: CVE-2024-25710
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.49
-  - id: CVE-2024-26308
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.49
-  - id: CVE-2024-22201
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.49
-  - id: CVE-2023-36478
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.49
-  - id: CVE-2024-21634
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.49
-  - id: CVE-2024-4068
-    statement: Transitive dependency of jest and msw. Not running in production. Likely fixed by upgrading.
-  - id: CVE-2024-37890
-    statement: ws vulnerability, transitive dependency of jest, storybook, graphql-codegen, not running in production.
-  - id: CVE-2024-45296
-    statement: Transitive dependency of react-router 5.3.4. Only affects client-side code ocrvs-7682
-  - id: CVE-2024-47068
-    statement: Transitive dependency of Vite. Not run in production and there is currently no fix.
-  - id: CVE-2024-7254
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.50 ocrvs-6607
-  - id: CVE-2024-41909
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.50 ocrvs-6607
-  - id: CVE-2024-22871
-    statement: Metabase v0.46 vulnerability, fixed in Metabase v0.50 ocrvs-6607
+  - id: CVE-2019-3815
+    statement: TEST
+  - id: CVE-2019-20386
+    statement: TEST
+  - id: CVE-2018-16888
+    statement: TEST
+  - id: CVE-2023-26604
+    statement: TEST

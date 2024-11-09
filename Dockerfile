@@ -1,1 +1,1 @@
-Dockerfile_hongs-nginx
+Dockerfile_centos6

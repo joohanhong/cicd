@@ -20,9 +20,9 @@ permissions:
 
 env:
   registry: 'aksaz99devazgov99registryiso.azurecr.io'
-  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
-  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
-  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
+  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}' #TEST
+  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}' #TEST1
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}' #TEST2
   
 
 jobs:
@@ -55,14 +55,12 @@ jobs:
             #sudo docker push ${{ env.image-ref }}
             
             #Problem Container Image TEST1
-            sudo docker build ./ -t ${{ env.image-ref }}
-            #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
-            sudo docker push ${{ env.image-ref }}
+            #sudo docker build ./ -t ${{ env.image-ref }}
+            #sudo docker push ${{ env.image-ref }}
            
             #Problem Container Image TEST2
-            #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
-            #sudo docker build ./ -t ${{ env.image-ref }}
-            #sudo docker push ${{ env.image-ref }} 
+            sudo docker build ./ -t ${{ env.image-ref }}
+            sudo docker push ${{ env.image-ref }} 
 
       - name: Run Trivy Vulnerability Scanner
         id: trivy_scan
@@ -97,7 +95,7 @@ jobs:
         run: |
           sudo yum install -y jq
           count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif |wc -l)
-          #echo "result_count=$count" >> $GITHUB_OUTPUT
+          echo "result_count=$count" >> $GITHUB_OUTPUT
           echo "Trivy Result_Count: $count"
 
       - name: Container Image Vulners Detected Sending Slack
@@ -108,8 +106,8 @@ jobs:
           fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          #if: ${{ steps.vulnerabilities.outputs.result_count != 0 }}
-        if: failure()
+        if: ${{ steps.vulnerabilities.outputs.result_count != 0 }}
+        #if: failure()
 
       - name: Container Image Vulners No Detected Sending Slack
         uses: 8398a7/action-slack@v3

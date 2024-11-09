@@ -23,13 +23,11 @@ env:
   image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
 
-defaults:
-  run:
-   working-directory: ./cicd
-
 jobs:
   build-and-trivy-checking:
     runs-on: self-hosted
+    env:
+      working-directory: ./cicd
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

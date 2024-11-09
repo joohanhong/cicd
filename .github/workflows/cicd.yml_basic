@@ -21,7 +21,7 @@ permissions:
 env:
   registry: 'aksaz99devazgov99registryiso.azurecr.io'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
-  image-ref: '$registry/centos7-nginx-vulner:${{ github.sha }}'
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
   
 
@@ -49,17 +49,17 @@ jobs:
       - name: BuildAndPushImage (CI)
         id: DockerBuild
         run: |
-            #No Problem Container Image TEST
+            #No Problem Container Image
             #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
             #sudo docker build ./ -t ${{ env.image-ref }}
             #sudo docker push ${{ env.image-ref }}
             
-            #Problem Container Image TEST1
+            #Problem Container Image CentOS 7 + Nginx
             sudo docker build ./ -t ${{ env.image-ref }}
             #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
             sudo docker push ${{ env.image-ref }}
            
-            #Problem Container Image TEST2
+            #Problem Container Image CentOS 6
             #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
             #sudo docker build ./ -t ${{ env.image-ref }}
             #sudo docker push ${{ env.image-ref }} 
@@ -75,9 +75,7 @@ jobs:
           output: 'trivy-results.sarif'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          #severity: 'CRITICAL,HIGH'
-          severity: 'CRITICAL'
-          trivyignores: "./.trivyignore.yaml"
+          severity: 'CRITICAL,HIGH'
       
       - name: Upload Trivy scan results to GitHub Security tab (2024-01-12, Changed)
         uses: github/codeql-action/upload-sarif@v3

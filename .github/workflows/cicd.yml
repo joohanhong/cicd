@@ -105,7 +105,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: '${{ env.image-ref }} Container Image Vulners Detected!'
+          author_name: '${{ env.image-ref }} Container Image Vulners Detected! or Git Build Failed!'
           fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -115,7 +115,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: '${{ env.image-ref }} Container Image No Vulners Detected.'
+          author_name: '${{ env.image-ref }} Container Image No Vulners Detected and Git Build Successed.'
           fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

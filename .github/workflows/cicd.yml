@@ -64,25 +64,25 @@ jobs:
             #sudo docker build ./ -t ${{ env.image-ref }}
             #sudo docker push ${{ env.image-ref }} 
 
-      #- name: Trivy Output File Init
-      #  id: trivy_output_file
-      #  run: |
-      #    sudo rm -rf trivy-results.sarif
+      - name: Run Trivy Vulnerability Scanner
+        id: trivy_scan
+        run: |
+          sudo trivy --config trivy.yaml ${{ env.image-ref }}
 
-      - name: Run Trivy vulnerability scanner
-        id: trivy-scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.image-ref }}
+      #- name: Run Trivy vulnerability scanner
+      #  id: trivy-scan
+      #  uses: aquasecurity/trivy-action@master
+      #  with:
+      #    image-ref: ${{ env.image-ref }}
           #format: 'table'
           #exit-code: '1'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
+          #format: 'sarif'
+          #output: 'trivy-results.sarif'
+          #ignore-unfixed: true
+          #vuln-type: 'os,library'
           #severity: 'CRITICAL,HIGH'
-          severity: 'CRITICAL'
-          trivyignores: "./.trivyignore.yaml"
+          #severity: 'CRITICAL'
+          #trivyignores: "./.trivyignore.yaml"
       
       - name: Upload Trivy scan results to GitHub Security tab (2024-01-12, Changed)
         uses: github/codeql-action/upload-sarif@v3

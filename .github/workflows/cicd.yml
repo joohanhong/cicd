@@ -67,7 +67,7 @@ jobs:
       - name: Run Trivy Vulnerability Scanner
         id: trivy_scan
         run: |
-          sudo trivy --config trivy.yaml ${{ env.image-ref }}
+          sudo trivy image --config trivy.yaml ${{ env.image-ref }}
 
       #- name: Run Trivy vulnerability scanner
       #  id: trivy-scan

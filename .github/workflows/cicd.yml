@@ -21,7 +21,7 @@ permissions:
 env:
   registry: 'aksaz99devazgov99registryiso.azurecr.io'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
-  image-ref: '${{ registry }}/centos7-nginx-vulner:${{ github.sha }}'
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
   
 

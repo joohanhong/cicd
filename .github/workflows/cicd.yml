@@ -1,4 +1,4 @@
-# Date: 2024-09-10
+# Date: 2024-11-10
 # Author: Joohanhong <joohan.hong@kt.com>
 
 name: Git-Action CI and Trivy Checking
@@ -19,9 +19,11 @@ permissions:
   checks: write
 
 env:
+  registry: 'aksaz99devazgov99registryiso.azurecr.io'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
-  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
+  image-ref: '${{ env.registry }}/centos7-nginx-vulner:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
+  
 
 jobs:
   build-and-trivy-checking:
@@ -37,6 +39,13 @@ jobs:
           username: ${{ secrets.GIT_USERNAME }}
           password: ${{ secrets.GIT_PASSWORD }}
 
+      - name: Login to Azure Container Registry(ACR)
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.registry }}
+          username: ${{ secrets.ACR_ISOLATE_USERNAME }}
+          password: ${{ secrets.ACR_ISOLATE_PASSWORD }}
+
       - name: BuildAndPushImage (CI)
         id: DockerBuild
         run: |
@@ -46,8 +55,8 @@ jobs:
             #sudo docker push ${{ env.image-ref }}
             
             #Problem Container Image CentOS 7 + Nginx
-            sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
             sudo docker build ./ -t ${{ env.image-ref }}
+            #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
             sudo docker push ${{ env.image-ref }}
            
             #Problem Container Image CentOS 6

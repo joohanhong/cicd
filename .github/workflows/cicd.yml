@@ -64,6 +64,11 @@ jobs:
             #sudo docker build ./ -t ${{ env.image-ref }}
             #sudo docker push ${{ env.image-ref }} 
 
+      - name: Trivy Output File Init
+        id: trivy_output_file
+        run: |
+          sudo rm -rf trivy-results.sarif
+
       - name: Run Trivy vulnerability scanner
         id: trivy-scan
         uses: aquasecurity/trivy-action@master
@@ -92,7 +97,7 @@ jobs:
         run: |
           sudo yum install -y jq
           count=$(jq '.runs[].results[].ruleId' ./trivy-results.sarif | wc -c)
-          echo "result_count=$count" >> $GITHUB_OUTPUT
+          #echo "result_count=$count" >> $GITHUB_OUTPUT
           echo "Trivy Result_Count: $count"
 
       - name: Container Image Vulners Detected Sending Slack

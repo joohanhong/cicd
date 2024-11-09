@@ -19,8 +19,8 @@ permissions:
   checks: write
 
 env:
-  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
-  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
+  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}'
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}'
 
 jobs:
@@ -41,19 +41,19 @@ jobs:
         id: DockerBuild
         run: |
             #No Problem Container Image
-            sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
-            sudo docker build ./ -t aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}
-            sudo docker push aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}
+            #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
+            #sudo docker build ./ -t ${{ image-ref }}
+            #sudo docker push ${{ image-ref }}
             
             #Problem Container Image CentOS 7 + Nginx
-            #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
-            #sudo docker build ./ -t aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}
-            #sudo docker push aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}
+            sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
+            sudo docker build ./ -t ${{ image-ref }}
+            sudo docker push ${{ image-ref }}
            
             #Problem Container Image CentOS 6
             #sudo docker login aksaz99devazgov99registryiso.azurecr.io -u ${{ secrets.ACR_ISOLATE_USERNAME }} -p ${{ secrets.ACR_ISOLATE_PASSWORD }}
-            #sudo docker build ./ -t aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}
-            #sudo docker push aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }} 
+            #sudo docker build ./ -t ${{ image-ref }}
+            #sudo docker push ${{ image-ref }} 
 
       - name: Run Trivy vulnerability scanner
         id: trivy-scan
@@ -105,4 +105,4 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: success()
 
-####
+#####

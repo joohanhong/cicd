@@ -1,1 +1,1 @@
-Dockerfile_no_vulners
+Dockerfile_centos6

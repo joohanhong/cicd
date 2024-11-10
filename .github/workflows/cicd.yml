@@ -22,7 +22,8 @@ env:
   registry: 'aksaz99devazgov99registryiso.azurecr.io'
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}' #TEST
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}' #TEST1
-  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}' #TEST2
+  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}' #TEST2
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/nodejs-ok:${{ github.sha }}' #TEST3
   
 
 jobs:

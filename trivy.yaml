@@ -6,7 +6,7 @@ format: sarif
 #exit-code: 1
 exit-code: 0
 output: trivy-results.sarif
-ignorefile: .trivyignore.yaml
+ignorefile: trivyignore.yaml
 severity:
   - CRITICAL
   #- HIGH

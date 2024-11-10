@@ -20,8 +20,8 @@ permissions:
 
 env:
   registry: 'aksaz99devazgov99registryiso.azurecr.io'
-  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}' #TEST
-  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}' #TEST1
+  #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/alpine-nginx-ok:${{ github.sha }}' #TEST
+  image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos7-nginx-vulner:${{ github.sha }}' #TEST1
   #image-ref: 'aksaz99devazgov99registryiso.azurecr.io/centos6-vulner:${{ github.sha }}' #TEST2
   
 
@@ -49,18 +49,9 @@ jobs:
       - name: BuildAndPushImage (CI)
         id: DockerBuild
         run: |
-            #No Problem Container Image TEST
             sudo docker build ./ -t ${{ env.image-ref }}
             sudo docker push ${{ env.image-ref }}
-            
-            #Problem Container Image TEST1
-            #sudo docker build ./ -t ${{ env.image-ref }}
-            #sudo docker push ${{ env.image-ref }}
            
-            #Problem Container Image TEST2
-            #sudo docker build ./ -t ${{ env.image-ref }}
-            #sudo docker push ${{ env.image-ref }} 
-
       - name: Run Trivy Vulnerability Scanner
         id: trivy_scan
         run: |
